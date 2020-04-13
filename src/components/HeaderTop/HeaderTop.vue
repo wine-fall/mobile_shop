@@ -11,9 +11,9 @@
 </template>
 <script>
 export default {
-    props:{
-        tittle:String
-    }
+  props: {
+    tittle: String
+  }
 }
 </script>
 <style lang="stylus" scoped>
@@ -56,5 +56,5 @@ export default {
               transform translateY(-50%)
               .header_login_text
                 color #fff
-          
+
 </style>

@@ -1,39 +1,39 @@
 <template>
-    <div class="footer_guide border-1px" v-show="$route.meta.showFooter==true"> 
+    <div class="footer_guide border-1px" v-show="$route.meta.showFooter==true">
         <!-- 通过路径判断是否添加这个类 -->
-        <a href="javascript:;" class="guide_item" :class="{on:'/mysite'===$route.path}" @click="goTo('/mysite')"> 
-            <span class="item_icon"> 
-                <i class="iconfont icon-waimai-"></i> 
-            </span> 
+        <a href="javascript:;" class="guide_item" :class="{on:'/mysite'===$route.path}" @click="goTo('/mysite')">
+            <span class="item_icon">
+                <i class="iconfont icon-waimai-"></i>
+            </span>
             <span>外卖</span>
-            </a> 
-            <a href="javascript:;" class="guide_item" :class="{on:$route.path==='/search'}" @click="goTo('/search')"> 
-                <span class="item_icon"> 
-                    <i class="iconfont icon-sousuo"></i>  
-                </span> 
-                <span>搜索</span> 
-            </a> 
-            <a href="javascript:;" class="guide_item" :class="{on:$route.path==='/order'}" @click="goTo('/order')"> 
-                <span class="item_icon"> 
-                    <i class="iconfont icon-dingdan"></i> 
-                </span> 
-                <span>订单</span> 
-            </a> 
-            <a href="javascript:;" class="guide_item" :class="{on:$route.path==='/profile'}" @click="goTo('/profile')"> 
-                <span class="item_icon"> 
-                    <i class="iconfont icon-user"></i> 
-                    </span> 
-                    <span>我的</span> 
-            </a> 
+            </a>
+            <a href="javascript:;" class="guide_item" :class="{on:$route.path==='/search'}" @click="goTo('/search')">
+                <span class="item_icon">
+                    <i class="iconfont icon-sousuo"></i>
+                </span>
+                <span>搜索</span>
+            </a>
+            <a href="javascript:;" class="guide_item" :class="{on:$route.path==='/order'}" @click="goTo('/order')">
+                <span class="item_icon">
+                    <i class="iconfont icon-dingdan"></i>
+                </span>
+                <span>订单</span>
+            </a>
+            <a href="javascript:;" class="guide_item" :class="{on:$route.path==='/profile'}" @click="goTo('/profile')">
+                <span class="item_icon">
+                    <i class="iconfont icon-user"></i>
+                    </span>
+                    <span>我的</span>
+            </a>
     </div>
 </template>
 <script>
 export default {
-    methods:{
-        goTo(path){
-            this.$router.replace(path)
-        }
+  methods: {
+    goTo (path) {
+      this.$router.replace(path)
     }
+  }
 }
 </script>
 <style lang="stylus" scoped rel="stylesheet/stylus">

@@ -1,31 +1,38 @@
 // 包含n个结构请求函数的模块
 // 函数的返回值为promise对象
 
-import ajax from "./ajax";
+import ajax from './ajax'
+const BASE_URL = 'http://localhost:4000'
 
 // [1、根据经纬度获取位置详情]
-export const reaAddress = (geohash) => ajax(`/position/${geohash}`)
+export const reqAddress = (geohash) => ajax(`${BASE_URL}/position/${geohash}`)
 
 // [2、获取食品分类列表]
-export const reaFoodTypes = () => ajax(`/index_category`)
+export const reqFoodCategorys = () => ajax(`${BASE_URL}/index_category`)
 
 // [3、根据经纬度获取商铺列表]
-export const reaShops = (query = { latitude, longitude }) => ajax(`/shops`, query)
+export const reqShops = (query = { latitude, longitude }) => ajax(`${BASE_URL}/shops`, query)
 
 // [4、根据经纬度和关键字搜索商铺列表]
-export const reaSearchShops = (query = { geohash, keyword }) => ajax(`search_shops`, query)
+export const reqSearchShops = (query = { geohash, keyword }) => ajax(`${BASE_URL}/search_shops`, query)
 
 // [6、用户名密码登陆]
-export const reaLogin = (params = { name, pwd, captcha }) => ajax(`/login_pwd`, params, 'POST')
+export const reqLoginPwd = (params = { name, pwd, captcha }) => ajax(`${BASE_URL}/login_pwd`, params, 'POST')
 
 // [7、发送短信验证码]
-export const reaSendCode = (phone) => ajax(`/sendcode`, phone)
+export const reqSendCode = (phone) => ajax(`${BASE_URL}/sendcode`, { phone })
 
 // [8、手机号验证码登陆]
-export const reaLoginSMS = (params = { phone, code }) => ajax(`/login_sms`, params, 'POST')
+export const reqLoginCode = (params = { phone, code }) => ajax(`${BASE_URL}/login_sms`, params, 'POST')
 
 // [9、根据会话获取用户信息]
-export const reaUserInfo = () => ajax(`/userinfo`)
+export const reqUserInfo = () => ajax(`${BASE_URL}/userinfo`)
 
 // [10、用户登出]
-export const reaLogout = () => ajax(`/logout`)
+export const reqLogout = () => ajax(`${BASE_URL}/logout`)
+    //商家信息
+export const reqShopInfo = () => ajax(`/info`)
+    //商家货物
+export const reqShopGoods = () => ajax(`/goods`)
+    //商家评分
+export const reqShopRating = () => ajax(`/ratings`)

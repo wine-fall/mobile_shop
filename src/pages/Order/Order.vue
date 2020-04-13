@@ -1,5 +1,5 @@
 <template>
-    
+
       <div class="order">
         <HeaderTop tittle="订单列表"></HeaderTop>
         <section class="order_no_login">
@@ -8,12 +8,12 @@
           <button>立即登陆</button>
         </section>
       </div>
-    
+
 </template>
 <script>
 import HeaderTop from '../../components/HeaderTop/HeaderTop.vue'
 export default {
-    components:{HeaderTop}
+  components: { HeaderTop }
 }
 </script>
 <style lang="stylus" scoped rel="stylesheet/stylus">

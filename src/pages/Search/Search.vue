@@ -1,5 +1,5 @@
 <template>
-    <div class="search">    
+    <div class="search">
         <HeaderTop tittle="搜索"></HeaderTop>
         <form class="search_form" action="#">
           <input type="search" name="search" placeholder="请输入商家或美食名称" class="search_input">
@@ -10,7 +10,7 @@
 <script>
 import HeaderTop from '../../components/HeaderTop/HeaderTop.vue'
 export default {
-    components:{HeaderTop}
+  components: { HeaderTop }
 }
 </script>
 <style lang="stylus" scoped rel="stylesheet/stylus">

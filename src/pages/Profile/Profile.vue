@@ -2,23 +2,23 @@
       <div class="profile">
         <HeaderTop tittle="我的"></HeaderTop>
         <section class="profile-number">
-          <router-link to="/login" class="profile-link">
+          <router-link :to="userInfo._id?'/userinfo':'/login'" class="profile-link">
             <div class="profile_image">
               <i class="iconfont icon-icon-geren"></i>
             </div>
             <div class="user-info">
-              <p class="user-info-top" @click="$router.replace('/login')">登录/注册</p>
+              <p class="user-info-top" @click="$router.replace('/login')" v-if="!userInfo.phone">{{userInfo.name||'登录/注册'}}</p>
               <p>
                 <span class="user-icon">
                   <i class="iconfont icon-icon-shouji"></i>
                 </span>
-                <span class="icon-mobile-number">暂无绑定手机号</span>
+                <span class="icon-mobile-number">{{userInfo.phone||'暂无绑定手机号'}}</span>
               </p>
             </div>
             <span class="arrow">
               <i class="iconfont icon-jiantou1"></i>
-            </span>  
-          </router-link>       
+            </span>
+          </router-link>
         </section>
         <section class="profile_info_data border-1px">
           <ul class="info_data_list">
@@ -40,36 +40,36 @@
           <!-- 我的订单 -->
           <a href='javascript:' class="my_order">
             <span>
-              <i class="iconfont icon-order-s"></i>
+              <i class="iconfont icon-icon-dingdan"></i>
             </span>
             <div class="my_order_div">
               <span>我的订单</span>
               <span class="my_order_icon">
-                <i class="iconfont icon-jiantou1"></i>
+                <i class="iconfont icon-icon-jiantou1"></i>
               </span>
             </div>
           </a>
           <!-- 积分商城 -->
           <a href='javascript:' class="my_order">
             <span>
-              <i class="iconfont icon-jifen"></i>
+              <i class="iconfont icon-icon-jifen"></i>
             </span>
             <div class="my_order_div">
               <span>积分商城</span>
               <span class="my_order_icon">
-                <i class="iconfont icon-jiantou1"></i>
+                <i class="iconfont icon-icon-jiantou1"></i>
               </span>
             </div>
           </a>
           <!-- 硅谷外卖会员卡 -->
           <a href="javascript:" class="my_order">
             <span>
-              <i class="iconfont icon-vip"></i>
+              <i class="iconfont icon-icon-vip"></i>
             </span>
             <div class="my_order_div">
-              <span>硅谷外卖会员卡</span>
+              <span>饿了么外卖会员卡</span>
               <span class="my_order_icon">
-                <i class="iconfont icon-jiantou1"></i>
+                <i class="iconfont icon-icon-jiantou1"></i>
               </span>
             </div>
           </a>
@@ -78,22 +78,47 @@
           <!-- 服务中心 -->
           <a href="javascript:" class="my_order">
             <span>
-              <i class="iconfont icon-fuwu"></i>
+              <i class="iconfont icon-icon-favorite"></i>
             </span>
             <div class="my_order_div">
               <span>服务中心</span>
               <span class="my_order_icon">
-                <i class="iconfont icon-jiantou1"></i>
+                <i class="iconfont icon-icon-jiantou1"></i>
               </span>
             </div>
           </a>
         </section>
+        <section class="profile_my_order border-1px">
+          <mt-button type="danger" style="width:100%" v-show="userInfo._id" @click="logOut">退出登入</mt-button>
+        </section>
       </div>
+      
 </template>
+
 <script>
 import HeaderTop from '../../components/HeaderTop/HeaderTop.vue'
+import { mapState } from 'vuex'
 export default {
-    components:{HeaderTop}
+  components: { HeaderTop },
+  computed: {
+    ...mapState(['userInfo'])
+  },
+  methods:{
+    logOut(){
+      this.$message.confirm('确认退出吗？').then(
+        resolve=>{
+          this.$store.dispatch('logOut')
+          this.$toast('退出成功')
+        },
+        reject=>{
+          console.log('取消了退出');
+        }
+      )
+      
+      
+      
+    }
+  }
 }
 </script>
 <style lang="stylus" scoped rel="stylesheet/stylus">
@@ -218,6 +243,7 @@ export default {
                 border-bottom 1px solid #f1f1f1
                 padding 18px 10px 18px 0
                 font-size 16px
+                margin-left 15px
                 color #333
                 display flex
                 justify-content space-between
