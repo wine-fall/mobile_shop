@@ -11,4 +11,5 @@ export const RECEIVE_SHOP_GOODS = 'receive_user_goods' // 获取商家食品
 export const RECEIVE_SHOP_RATING = 'receive_user_rating' // 获取商家评分
 export const ADD_FOOD_COUNT = 'add_food_count' // 商品+1
 export const MINUS_FOOD_COUNT = 'minus_food_count' // 商品-1
-export const DELETE_ALL_FOOD = 'delete_all_food' // 商品-1
+export const DELETE_ALL_FOOD = 'delete_all_food' // 清楚购物车
+export const SEARCH_SHOP = 'search_shop' // 清楚购物车

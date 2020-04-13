@@ -12,9 +12,10 @@ import {
     RECEIVE_SHOP_RATING,
     ADD_FOOD_COUNT,
     MINUS_FOOD_COUNT,
-    DELETE_ALL_FOOD
+    DELETE_ALL_FOOD,
+    SEARCH_SHOP
 } from './mutation-types'
-import { reqAddress, reqFoodCategorys, reqShops, reqUserInfo, reqLogout, reqShopInfo, reqShopGoods, reqShopRating } from '../api/index'
+import { reqAddress, reqFoodCategorys, reqShops, reqUserInfo, reqLogout, reqShopInfo, reqShopGoods, reqShopRating, reqSearchShops } from '../api/index'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -29,6 +30,7 @@ export default new Vuex.Store({
         shopGoods: [],
         shopRating: [],
         cartFoods: [],
+        searchedShop: [], //搜索后的数组
     },
     mutations: {
         [RECEIVE_ADDRESS](state, { address }) {
@@ -77,6 +79,9 @@ export default new Vuex.Store({
                 delete food.count
             });
             state.cartFoods = []
+        },
+        [SEARCH_SHOP](state, searchedShop) {
+            state.searchedShop = searchedShop
         }
     },
     actions: {
@@ -135,6 +140,14 @@ export default new Vuex.Store({
                 callback && callback() //存在callback时才去调用
             }
         },
+        async getShopRating(context, callback) {
+            const res = await reqShopRating()
+            if (res.code === 0) {
+                const shopRating = res.data
+                context.commit(RECEIVE_SHOP_RATING, shopRating)
+                callback && callback() //存在callback时才去调用
+            }
+        },
         updateFood(context, { isAdd, food }) {
             if (isAdd) {
                 context.commit(ADD_FOOD_COUNT, food)
@@ -144,6 +157,18 @@ export default new Vuex.Store({
         },
         deleteCart(context) {
             context.commit(DELETE_ALL_FOOD)
+        },
+        async searchShops(context, keyword) {
+            const geohash = context.state.latitude + ',' + context.state.longitude
+            const query = {
+                geohash: geohash,
+                keyword: keyword
+            }
+            const res = await reqSearchShops(query)
+            if (res.code === 0) {
+                const searchedShop = res.data
+                context.commit(SEARCH_SHOP, searchedShop)
+            }
         }
     },
     getters: {
@@ -152,6 +177,9 @@ export default new Vuex.Store({
         },
         totalPrice(state) {
             return state.cartFoods.reduce((preTotal, food) => preTotal + food.count * food.price, 0)
+        },
+        positiveRating(state) {
+            return state.shopRating.reduce((prePos, rating) => prePos + (rating.rateType === 0 ? 1 : 0), 0)
         }
     },
     modules: {}
